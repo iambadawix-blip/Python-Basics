@@ -45,9 +45,10 @@ patient_col = {
 For every patient, display all their information in a readable format.'''
 
 for k, v in patient_col.items():
-   for patient_det, values in v.items():
+   for patient_det, values in v.items(): #det here means details
+
       print (f'{patient_det.title()}: {values}')
-    
+
 
 '''2. Detect abnormal findings
 
@@ -70,19 +71,23 @@ for k, v in patient_col.items():
 
 Determine how many patients belong to each department.'''
 
+dept = []
 for k, v in patient_col.items():
-    v['department']
+   dept.append(v['department'])
+print(dept)
 
 
 
 
 
-
-
+meds = []
 '''4. Analyze medications
 
 Count how frequently each medication appears across all patients.'''
-
+for v in patient_col.values():
+    meds.extend(v['medications'])
+for med in set(meds):
+    print(med, meds.count(med))
 
 
 
@@ -90,8 +95,10 @@ Count how frequently each medication appears across all patients.'''
 '''5. Find the oldest patient
 
 Search through all records and identify the oldest person.'''
-
-
+ages = []
+for v in patient_col.values():
+    ages.append(v['age'])
+print (f'The oldest patient here is {max(ages)}')
 
 
 '''6. Symptom analysis
@@ -99,6 +106,13 @@ Search through all records and identify the oldest person.'''
 Identify patients who have many symptoms.
 
 You decide what qualifies as "many."'''
+#people with more than one symptom have many symptoms
+
+for v in patient_col.values():
+    
+    if len(v['symptoms']) > 1:
+        print ('This patient has many symptoms')
+
 
 
 
@@ -113,3 +127,23 @@ Total patients
 Number of abnormal cases
 Number of departments
 Number of unique medications'''
+#this checks the total number of patients
+
+print(len(patient_col))
+#abnormal cases undefined
+#this should check the number of departments
+#first we add them to a set
+dept = []
+for v in patient_col.values():
+    dept.append(v['department'])
+dept = set(dept)
+print (len(dept))
+
+#this should check for the number of unique medications
+meds = []
+for v in patient_col.values():
+    meds.extend(v['medications'])
+# ¨¨
+meds = set(meds)
+print (f'the number of unique meds is {len(meds)}')
+
